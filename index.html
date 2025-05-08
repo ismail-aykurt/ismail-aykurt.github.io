@@ -16,7 +16,78 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f5f5f5;
+            background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, rgba(52, 152, 219, 0.05) 0%, 
+                                              rgba(46, 204, 113, 0.05) 30%, 
+                                              rgba(52, 152, 219, 0.05) 60%,
+                                              rgba(46, 204, 113, 0.05) 100%);
+            animation: gradientBG 15s ease infinite;
+            z-index: -2;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatParticle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(var(--moveY)) translateX(var(--moveX));
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        [data-theme="dark"] body {
+            background: linear-gradient(45deg, #1a1a1a, #2c2c2c);
+        }
+
+        [data-theme="dark"] body::before {
+            background: linear-gradient(125deg, rgba(52, 152, 219, 0.05) 0%, 
+                                              rgba(46, 204, 113, 0.05) 30%, 
+                                              rgba(52, 152, 219, 0.05) 60%,
+                                              rgba(46, 204, 113, 0.05) 100%);
+            opacity: 0.1;
         }
 
         /* Header styles */
@@ -149,14 +220,16 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
-        /* Navigation */
+        /* Navigation Animation */
         nav {
-            background-color: #fff;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95));
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky; /* Web görünümünde sabit kalacak */
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         nav ul {
@@ -164,17 +237,39 @@
             display: flex;
             justify-content: center;
             gap: 30px;
+            position: relative;
         }
 
         nav a {
             text-decoration: none;
             color: #2c3e50;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        nav a:hover::before {
+            left: 100%;
         }
 
         nav a:hover {
             color: #3498db;
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateY(-2px);
         }
 
         /* Mobil cihazlar için responsive tasarım */
@@ -2296,21 +2391,21 @@
 
         .volunteer-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 400px));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 15px;
         }
 
         .volunteer-column {
+            width: 100%;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 12px;
             padding: 15px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .volunteer-column:hover {
@@ -2407,46 +2502,33 @@
             gap: 4px;
         }
 
-        @media (max-width: 992px) {
-            .volunteer-grid {
-                grid-template-columns: 1fr;
-                max-width: 600px;
-                gap: 20px;
-                margin: 0 auto;
-                padding: 0 15px;
-            }
-
-            .volunteer-column {
-                width: 100%;
-            }
-        }
-
         @media (max-width: 768px) {
             .volunteer-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
                 gap: 15px;
-                padding: 0 10px;
                 margin: 0 10px;
             }
 
             .volunteer-column {
-                margin-bottom: 12px;
-                padding: 12px;
+                margin-bottom: 15px;
             }
 
             .project-card {
-                padding: 10px;
-                margin-bottom: 10px;
+                margin-bottom: 12px;
             }
         }
 
         @media (max-width: 480px) {
             .volunteer-grid {
+                padding: 5px;
+                gap: 10px;
                 margin: 0 5px;
-                padding: 0 5px;
             }
 
             .volunteer-column {
                 padding: 10px;
+                margin-bottom: 10px;
             }
         }
 
@@ -2620,22 +2702,81 @@
         /* Dark Mode Toggle Button */
         .theme-toggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            top: 20px;
+            left: 20px;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 10px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 45px;
             height: 45px;
+            animation: floatButton 3s ease-in-out infinite;
+        }
+
+        @keyframes floatButton {
+            0% {
+                transform: translateY(0px);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+            }
+            100% {
+                transform: translateY(0px);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .theme-toggle:hover {
+            animation: none;
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-toggle i {
+            color: #fff;
+            font-size: 1.3em;
+            transition: transform 0.3s ease;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(360deg);
+        }
+
+        [data-theme="dark"] nav {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95), rgba(52, 73, 94, 0.95));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="dark"] nav a {
+            color: #ecf0f1;
+        }
+
+        [data-theme="dark"] nav a:hover {
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        /* Light theme as default */
+        :root {
+            color-scheme: light;
+        }
+
+        [data-theme="light"] {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
         }
 
         .theme-toggle:hover {
@@ -2647,66 +2788,6 @@
             font-size: 1.2em;
             color: #333;
             transition: all 0.3s ease;
-        }
-
-        /* Dark Mode Styles */
-        [data-theme="dark"] {
-            background-color: #1a1a1a;
-            color: #fff;
-        }
-
-        [data-theme="dark"] nav {
-            background-color: #2c2c2c;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        [data-theme="dark"] nav a {
-            color: #fff;
-        }
-
-        [data-theme="dark"] .project-card,
-        [data-theme="dark"] .blog-card,
-        [data-theme="dark"] .experience-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="dark"] .project-card h3,
-        [data-theme="dark"] .blog-card h3 {
-            color: #fff;
-        }
-
-        [data-theme="dark"] .project-details,
-        [data-theme="dark"] .blog-excerpt {
-            color: #ccc;
-        }
-
-        [data-theme="dark"] .theme-toggle {
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        [data-theme="dark"] .theme-toggle i {
-            color: #fff;
-        }
-
-        [data-theme="dark"] .contact-form {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        [data-theme="dark"] .contact-form input,
-        [data-theme="dark"] .contact-form textarea {
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="dark"] .contact-form input::placeholder,
-        [data-theme="dark"] .contact-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        [data-theme="dark"] footer {
-            background-color: #2c2c2c;
         }
 
         /* Dark Mode Styles */
@@ -3077,11 +3158,81 @@
             color: #FFD700;
             font-weight: 500;
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .volunteer-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
+                gap: 15px;
+                margin: 0 10px;
+            }
+
+            .volunteer-column {
+                margin-bottom: 15px;
+            }
+
+            .project-card {
+                margin-bottom: 12px;
+            }
+
+            .project-card .project-details {
+                font-size: 0.9em;
+                line-height: 1.6;
+            }
+
+            .project-card h3 {
+                font-size: 1em;
+            }
+
+            .project-card .organization span {
+                font-size: 0.9em;
+            }
+
+            .theme-toggle {
+                top: 10px;
+                left: 10px;
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .volunteer-grid {
+                padding: 5px;
+                gap: 10px;
+                margin: 0 5px;
+            }
+
+            .volunteer-column {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .project-card {
+                padding: 10px;
+                margin-bottom: 12px;
+            }
+
+            .project-card .project-details {
+                font-size: 0.85em;
+            }
+
+            .theme-toggle {
+                width: 32px;
+                height: 32px;
+            }
+
+            .theme-toggle i {
+                font-size: 1em;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <div class="theme-toggle" id="themeToggle">
         <i class="fas fa-moon"></i>
     </div>
+    <div class="bg-animation" id="bgAnimation"></div>
 </head>
 <body>
     <nav>
@@ -3861,53 +4012,40 @@
     <style>
         .volunteer-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 400px));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 15px;
         }
 
-        @media (max-width: 992px) {
-            .volunteer-grid {
-                grid-template-columns: 1fr;
-                max-width: 600px;
-                gap: 20px;
-                margin: 0 auto;
-                padding: 0 15px;
-            }
-
-            .volunteer-column {
-                width: 100%;
-            }
-        }
-
         @media (max-width: 768px) {
             .volunteer-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
                 gap: 15px;
-                padding: 0 10px;
                 margin: 0 10px;
             }
 
             .volunteer-column {
-                margin-bottom: 12px;
-                padding: 12px;
+                margin-bottom: 15px;
             }
 
             .project-card {
-                padding: 10px;
-                margin-bottom: 10px;
+                margin-bottom: 12px;
             }
         }
 
         @media (max-width: 480px) {
             .volunteer-grid {
+                padding: 5px;
+                gap: 10px;
                 margin: 0 5px;
-                padding: 0 5px;
             }
 
             .volunteer-column {
                 padding: 10px;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -4520,10 +4658,14 @@
             const themeToggle = document.getElementById('themeToggle');
             const icon = themeToggle.querySelector('i');
             
-            // Kaydedilmiş temayı kontrol et
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme === 'dark');
+            // Set light mode as default
+            document.documentElement.setAttribute('data-theme', 'light');
+            updateThemeIcon(false);
+
+            // Remove animation after 5 seconds
+            setTimeout(() => {
+                themeToggle.style.animation = 'none';
+            }, 5000);
 
             themeToggle.addEventListener('click', () => {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -4532,15 +4674,54 @@
                 document.documentElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
                 updateThemeIcon(newTheme === 'dark');
+
+                // Remove animation on click
+                themeToggle.style.animation = 'none';
             });
 
             function updateThemeIcon(isDark) {
                 icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
             }
 
-            // Tema değişikliğinde yumuşak geçiş için
             document.documentElement.style.transition = 'background-color 0.3s ease, color 0.3s ease';
         });
+    </script>
+
+    <script>
+        // Arka plan animasyonu için parçacıklar oluştur
+        function createParticles() {
+            const container = document.getElementById('bgAnimation');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Rastgele boyut
+                const size = Math.random() * 15 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Rastgele başlangıç pozisyonu
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Rastgele hareket
+                const moveX = (Math.random() - 0.5) * 200;
+                const moveY = (Math.random() - 0.5) * 200;
+                particle.style.setProperty('--moveX', `${moveX}px`);
+                particle.style.setProperty('--moveY', `${moveY}px`);
+                
+                // Rastgele animasyon süresi
+                const duration = Math.random() * 20 + 10;
+                particle.style.setProperty('--duration', `${duration}s`);
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Sayfa yüklendiğinde parçacıkları oluştur
+        document.addEventListener('DOMContentLoaded', createParticles);
     </script>
 </body>
 </html> 
