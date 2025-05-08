@@ -3227,12 +3227,65 @@
                 font-size: 1em;
             }
         }
+
+        /* Theme Toggle Tooltip */
+        .theme-toggle-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-tooltip {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            opacity: 0;
+            transform: translateX(-20px);
+            pointer-events: none;
+            white-space: nowrap;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: showTooltip 3s ease-in-out forwards;
+        }
+
+        @keyframes showTooltip {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            20% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            80% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+        }
+
+        [data-theme="dark"] .theme-tooltip {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
+    <div class="theme-toggle-container">
+        <div class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </div>
+        <div class="theme-tooltip">Karanlık moda geç</div>
     </div>
-    <div class="bg-animation" id="bgAnimation"></div>
 </head>
 <body>
     <nav>
@@ -4654,18 +4707,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Tema değiştirme fonksiyonu
             const themeToggle = document.getElementById('themeToggle');
             const icon = themeToggle.querySelector('i');
+            const tooltip = document.querySelector('.theme-tooltip');
             
             // Set light mode as default
             document.documentElement.setAttribute('data-theme', 'light');
             updateThemeIcon(false);
 
-            // Remove animation after 5 seconds
+            // Remove tooltip after animation
             setTimeout(() => {
-                themeToggle.style.animation = 'none';
-            }, 5000);
+                tooltip.style.display = 'none';
+            }, 3000);
 
             themeToggle.addEventListener('click', () => {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -4674,16 +4727,12 @@
                 document.documentElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
                 updateThemeIcon(newTheme === 'dark');
-
-                // Remove animation on click
-                themeToggle.style.animation = 'none';
             });
 
             function updateThemeIcon(isDark) {
                 icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                tooltip.textContent = isDark ? 'Aydınlık moda geç' : 'Karanlık moda geç';
             }
-
-            document.documentElement.style.transition = 'background-color 0.3s ease, color 0.3s ease';
         });
     </script>
 
