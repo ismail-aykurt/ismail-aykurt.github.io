@@ -2011,86 +2011,118 @@
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-content {
-            padding: 25px;
-        }
-
-        .project-header {
+        .project-card .organization {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        .project-header h3 {
-            color: white;
-            font-size: 1.3em;
-            margin: 0;
-        }
-
-        .project-date {
-            color: #ffd700;
+        .project-card .organization span {
+            color: #2c3e50;
+            font-weight: 600;
             font-size: 0.9em;
+        }
+
+        .project-card h3 {
+            color: #2c3e50;
+            font-size: 1em;
+            margin-bottom: 6px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .project-card .project-role {
+            color: #3498db;
+            font-size: 0.8em;
+            margin-bottom: 8px;
             font-weight: 500;
         }
 
-        .project-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.15);
-            color: #ffd700;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.9em;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .project-description {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .project-tags .tag {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 15px;
+        .project-card .project-details {
+            color: #555;
             font-size: 0.85em;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            line-height: 1.4;
+            margin-bottom: 8px;
         }
 
-        .project-tags .tag:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        .project-card .project-duration {
+            color: #666;
+            font-size: 0.75em;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 6px;
+            margin: 6px 0;
+            flex-wrap: wrap;
+        }
+
+        .location-badge, .role-badge {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            color: #2980b9;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+        }
+
+        .project-card.t3-vakfi::before,
+        .project-card.teknofest::before,
+        .project-card.t3-ai::before,
+        .project-card.afad::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: 40%;
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            opacity: 0.05;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .project-card.t3-vakfi::before {
+            background-image: url('unnamed.jpg');
+        }
+
+        .project-card.teknofest::before {
+            background-image: url('images.png');
+        }
+
+        .project-card.t3-ai::before {
+            background-image: url('t3aile_logo.jpeg');
+        }
+
+        .project-card.afad::before {
+            background-image: url('AFAD-Logo-Renkli.png');
         }
 
         #projects .section-title {
@@ -2334,6 +2366,54 @@
             .project-card {
                 padding: 10px;
             }
+        }
+
+        .project-card.t3-ai,
+        .project-card.afad {
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card.t3-ai:hover,
+        .project-card.afad:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card.t3-ai .project-details,
+        .project-card.afad .project-details {
+            color: #555;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card.t3-ai h3,
+        .project-card.afad h3 {
+            color: #2c3e50;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card.t3-ai .project-role,
+        .project-card.afad .project-role {
+            color: #3498db;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card.t3-ai .project-duration,
+        .project-card.afad .project-duration {
+            color: #666;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card.t3-ai .organization span,
+        .project-card.afad .organization span {
+            color: #2c3e50;
+            position: relative;
+            z-index: 2;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
