@@ -2206,6 +2206,135 @@
             50% { opacity: 0.3; }
             100% { opacity: 0.1; }
         }
+
+        .volunteer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 400px));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .volunteer-column {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .volunteer-column:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .volunteer-column .section-title {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card .organization {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .project-card .organization-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .project-card .organization span {
+            color: #3498db;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .project-card h3 {
+            color: white;
+            font-size: 1em;
+            margin-bottom: 6px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .project-card .project-role {
+            color: #ffd700;
+            font-size: 0.8em;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .project-card .project-details {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.85em;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .project-card .project-duration {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75em;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 6px;
+            margin: 6px 0;
+            flex-wrap: wrap;
+        }
+
+        .location-badge, .role-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .volunteer-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .volunteer-column {
+                margin-bottom: 12px;
+                padding: 12px;
+            }
+
+            .project-card {
+                padding: 10px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -2795,7 +2924,7 @@
         <h2 class="section-title scroll-animate">Projeler</h2>
         <div class="projects-grid scroll-animate scroll-animate-delay-1">
             <div class="project-card">
-                <img src="kiraz.jpeg" alt="Kiraz Hastalık Tanısı Projesi">
+                <img src="https://images.unsplash.com/photo-1628961188413-c09b9aef1f06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Kiraz Hastalık Tanısı Projesi">
                 <div class="project-content">
                     <div class="project-header">
                         <h3>Kiraz Meyvelerinde Hastalık Tanısı</h3>
@@ -2885,43 +3014,212 @@
             <i class="fas fa-seedling floating-icon" style="top: 30%; left: 60%; animation-delay: 3s;"></i>
             <i class="fas fa-users floating-icon" style="top: 80%; left: 40%; animation-delay: 4s;"></i>
         </div>
-        <h2 class="section-title">Sosyal Sorumluluk Projeleri</h2>
-        <div class="projects-grid">
-            <div class="project-card t3-vakfi">
-                <div class="project-content">
-                    <div class="organization">
-                        <img src="unnamed.jpg" alt="T3 Vakfı Logo" class="organization-logo">
-                        <span>T3 Vakfı</span>
+        <div class="volunteer-grid">
+            <div class="volunteer-column">
+                <h2 class="section-title">Sosyal Sorumluluk Projeleri</h2>
+                <div class="projects-grid">
+                    <div class="project-card t3-vakfi">
+                        <div class="project-content">
+                            <div class="organization">
+                                <img src="unnamed.jpg" alt="T3 Vakfı Logo" class="organization-logo">
+                                <span>T3 Vakfı</span>
+                            </div>
+                            <h3>Gençlere Python Eğitimi</h3>
+                            <div class="project-role">Proje Yürütücüsü</div>
+                            <p class="project-details">T3 Vakfı öncülüğünde yürütülen projede, ortaokul öğrencilerine Python eğitimi verdim. Geleceğin teknoloji uzmanlarının yetişmesine katkıda bulundum.</p>
+                            <div class="project-duration">04-2025</div>
+                        </div>
                     </div>
-                    <h3>Gençlere Python Eğitimi</h3>
-                    <div class="project-role">Proje Yürütücüsü</div>
-                    <p class="project-details">T3 Vakfı öncülüğünde yürütülen projede, ortaokul öğrencilerine Python eğitimi verdim. Geleceğin teknoloji uzmanlarının yetişmesine katkıda bulundum.</p>
-                    <div class="project-duration">04-2025</div>
+                    <div class="project-card teknofest">
+                        <div class="project-content">
+                            <div class="organization">
+                                <img src="images.png" alt="TEKNOFEST Logo" class="organization-logo">
+                                <span>TEKNOFEST</span>
+                            </div>
+                            <h3>TEKNOFEST KKTC Jüri Sorumlusu</h3>
+                            <div class="badges">
+                                <span class="location-badge">
+                                    <i class="fas fa-map-marker-alt"></i> KKTC
+                                </span>
+                                <span class="role-badge">
+                                    <i class="fas fa-user-tie"></i> Jüri Sorumlusu
+                                </span>
+                            </div>
+                            <p class="project-details">
+                                KKTC'de düzenlenen TEKNOFEST'te jüri sorumlusu olarak görev aldım. Gençlerin yenilikçi projelerini değerlendirdim ve teknolojinin yaygınlaştırılmasına katkıda bulundum.
+                            </p>
+                            <div class="project-duration">05-2025</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="project-card teknofest">
-                <div class="project-content">
-                    <div class="organization">
-                        <img src="images.png" alt="TEKNOFEST Logo" class="organization-logo">
-                        <span>TEKNOFEST</span>
+
+            <div class="volunteer-column">
+                <h2 class="section-title">Gönüllü Çalışmalar</h2>
+                <div class="projects-grid">
+                    <div class="project-card t3-ai">
+                        <div class="project-content">
+                            <div class="organization">
+                                <img src="unnamed.jpg" alt="T3 AI Logo" class="organization-logo">
+                                <span>T3 AI'LE</span>
+                            </div>
+                            <h3>Büyük Dil Geliştirme Gönüllüsü</h3>
+                            <div class="project-role">Gönüllü Geliştirici</div>
+                            <p class="project-details">
+                                T3AI Projesi, T3 Vakfı yürütücülüğünde gerçekleşir, Türkiye'nin yerli üretken yapay zeka modellerinin geliştirilmesi, bu teknolojinin hizmetlere entegre edilmesi ve yapay zeka alanında çalışan yetkin iş gücünün oluşturulmasında öncü olmayı hedefler.
+                            </p>
+                            <div class="project-duration">05-2024 - Devam Ediyor</div>
+                        </div>
                     </div>
-                    <h3>TEKNOFEST KKTC Jüri Sorumlusu</h3>
-                    <div class="badges">
-                        <span class="location-badge">
-                            <i class="fas fa-map-marker-alt"></i> KKTC
-                        </span>
-                        <span class="role-badge">
-                            <i class="fas fa-user-tie"></i> Jüri Sorumlusu
-                        </span>
+                    <div class="project-card afad">
+                        <div class="project-content">
+                            <div class="organization">
+                                <img src="afad-logo.png" alt="AFAD Logo" class="organization-logo">
+                                <span>AFAD</span>
+                            </div>
+                            <h3>Yardım Gönüllüsü</h3>
+                            <div class="project-role">Gönüllü</div>
+                            <p class="project-details">
+                                T.C. İçişleri Bakanlığı Afet ve Acil Durum Yönetimi Başkanlığı bünyesinde felaket ve insani yardım alanında gönüllü çalışmalar yürütüyorum.
+                            </p>
+                            <div class="project-duration">Devam Ediyor</div>
+                        </div>
                     </div>
-                    <p class="project-details">
-                        KKTC'de düzenlenen TEKNOFEST'te jüri sorumlusu olarak görev aldım. Gençlerin yenilikçi projelerini değerlendirdim ve teknolojinin yaygınlaştırılmasına katkıda bulundum.
-                    </p>
-                    <div class="project-duration">05-2025</div>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+        .volunteer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 400px));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .volunteer-column {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .volunteer-column:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .volunteer-column .section-title {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card .organization {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .project-card .organization-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .project-card .organization span {
+            color: #3498db;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .project-card h3 {
+            color: white;
+            font-size: 1em;
+            margin-bottom: 6px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .project-card .project-role {
+            color: #ffd700;
+            font-size: 0.8em;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .project-card .project-details {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.85em;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .project-card .project-duration {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75em;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 6px;
+            margin: 6px 0;
+            flex-wrap: wrap;
+        }
+
+        .location-badge, .role-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .volunteer-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .volunteer-column {
+                margin-bottom: 12px;
+                padding: 12px;
+            }
+
+            .project-card {
+                padding: 10px;
+            }
+        }
+    </style>
 
     <section id="blog">
         <h2 class="section-title scroll-animate">Blog Yazılarım</h2>
