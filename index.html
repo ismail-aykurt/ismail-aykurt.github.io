@@ -3491,6 +3491,49 @@
                 padding: 5px;
             }
         }
+
+        .community-logo-container {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .community-logo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .community-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        [data-theme="dark"] .community-logo-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .community-logo-container {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <div class="theme-toggle-container">
@@ -3623,6 +3666,9 @@
                         <h4><i class="fas fa-users"></i>Topluluk & Kulüp Üyelikleri</h4>
                         <div class="experience-item">
                             <div class="item-header">
+                                <div class="community-logo-container">
+                                    <img src="ieee_logo.png" alt="IEEE Logo" class="community-logo">
+                                </div>
                                 <span class="item-title">IEEE Student Branch</span>
                                 <span class="item-date">2023 - 2024</span>
                             </div>
@@ -3636,6 +3682,9 @@
                         </div>
                         <div class="experience-item">
                             <div class="item-header">
+                                <div class="community-logo-container">
+                                    <img src="teknofest_logo.png" alt="Teknofest Logo" class="community-logo">
+                                </div>
                                 <span class="item-title">Teknofest Topluluğu</span>
                                 <span class="item-date">2025 - Devam</span>
                             </div>
@@ -4127,6 +4176,30 @@
         <div class="projects-bg-animation"></div>
         <h2 class="section-title scroll-animate">Projeler</h2>
         <div class="projects-grid scroll-animate scroll-animate-delay-1">
+            <div class="project-card">
+                <img src="t3_vakfi_isparta.jpg" alt="T3 Vakfı Isparta Projesi">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>T3 Vakfı Isparta / Proje Yöneticisi</h3>
+                        <span class="project-date">2025 - Devam Ediyor</span>
+                    </div>
+                    <div class="project-badge">Proje Yöneticisi</div>
+                    <div class="project-motto">"Bilgiyi paylaştıkça büyüt, geleceği birlikte şekillendir."</div>
+                    <p class="project-description">
+                        T3 Vakfı Isparta bursiyeri olarak, ortaokul ve lise öğrencilerine yönelik düzenlenen Teknofest tanıtım ve 
+                        proje hazırlık eğitimlerinin yürütülmesinde proje yöneticisi olarak görev aldım. Sunumları hazırlayan 
+                        üniversite öğrencilerinden oluşan ekibi koordine ederek, içerik planlaması, görev dağılımı ve zaman yönetimi 
+                        gibi konularda ekibe rehberlik ettim.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Proje Yönetimi</span>
+                        <span class="tag">Eğitim Koordinasyonu</span>
+                        <span class="tag">Ekip Liderliği</span>
+                        <span class="tag">TEKNOFEST</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="project-card">
                 <img src="kiraz.jpeg" alt="Kiraz Hastalık Tanısı Projesi">
                 <div class="project-content">
