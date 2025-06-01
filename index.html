@@ -1272,7 +1272,8 @@
             background: linear-gradient(135deg, #2193b0, #27ae60);
             padding: 80px 0;
             color: white;
-            overflow: hidden;
+            overflow: visible;
+            min-height: 100vh;
         }
 
         .projects-bg-animation {
@@ -2148,7 +2149,8 @@
             background: linear-gradient(135deg, #2193b0, #27ae60);
             padding: 80px 0;
             color: white;
-            overflow: hidden;
+            overflow: visible;
+            min-height: 100vh;
         }
 
         .projects-grid {
@@ -2158,6 +2160,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            overflow: visible;
         }
 
         .project-card {
@@ -2170,6 +2173,21 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
+                gap: 15px;
+                margin: 0 10px;
+            }
+
+            .project-card {
+                margin-bottom: 12px;
+                height: auto;
+            }
         }
 
         .project-card:hover {
@@ -3534,6 +3552,255 @@
                 margin-right: 10px;
             }
         }
+
+        .header-bg-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            transition: background-image 1s ease, opacity 1s;
+            pointer-events: none;
+        }
+
+        .header-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .header-bg-slideshow { display: none !important; }
+
+        /* Parallax katmanlar */
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .layer1 { background: url('https://svgshare.com/i/13kA.svg') repeat; opacity: 0.15; }
+        .layer2 { background: url('https://svgshare.com/i/13kB.svg') repeat; opacity: 0.10; }
+        .layer3 { background: url('https://svgshare.com/i/13kC.svg') repeat; opacity: 0.07; }
+
+        /* 3D Küp */
+        .cube-container {
+            width: 90px;
+            height: 90px;
+            margin: -30px 0 30px 47vw; /* Daha yukarı ve sağa */
+            perspective: 600px;
+            z-index: 2;
+            position: relative;
+        }
+        .cube {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            transform-style: preserve-3d;
+            transform: translateX(-50%) rotateX(-20deg) rotateY(20deg);
+            transition: transform 0.1s ease-out;
+            cursor: grab;
+            z-index: 10;
+        }
+        .cube:active {
+            cursor: grabbing;
+        }
+        .cube .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            font-size: 2em;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            pointer-events: auto; /* Yüzler tıklanabilir olsun */
+        }
+        .cube .face span {
+            font-size: 0.6em;
+            font-weight: 600;
+            margin-top: 4px;
+            letter-spacing: 1px;
+            color: #fff;
+            opacity: 0.85;
+        }
+        .cube .front  { transform: rotateY(0deg) translateZ(50px); }
+        .cube .back   { transform: rotateY(180deg) translateZ(50px); }
+        .cube .right  { transform: rotateY(90deg) translateZ(50px); }
+        .cube .left   { transform: rotateY(-90deg) translateZ(50px); }
+        .cube .top    { transform: rotateX(90deg) translateZ(50px); }
+        .cube .bottom { transform: rotateX(-90deg) translateZ(50px); }
+        @keyframes rotateCube {
+            0% { transform: translateX(-50%) rotateX(-20deg) rotateY(0deg); }
+            100% { transform: translateX(-50%) rotateX(-20deg) rotateY(360deg); }
+        }
+        .cube.interactive {
+            animation: none;
+        }
+        .cube-container:hover .cube {
+            box-shadow: 0 8px 32px rgba(33, 150, 243, 0.18);
+        }
+
+        .live-info-fixed {
+            position: fixed;
+            top: 3px;
+            right: 32px;
+            z-index: 2000;
+            background: rgba(255,255,255,0.95);
+            color: #2176ae;
+            padding: 10px 18px 9px 18px;
+            border-radius: 18px;
+            font-size: 1.02em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-shadow: 0 2px 12px rgba(44,62,80,0.13);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+            letter-spacing: 1px;
+            opacity: 0.98;
+            border: 1.5px solid #e0e7ef;
+            min-width: 120px;
+            transition: all 0.3s;
+        }
+        .live-info-fixed span {
+            display: block;
+            font-weight: 600;
+            line-height: 1.1;
+            text-align: right;
+        }
+        #liveClockFixed {
+            color: #2176ae;
+            font-size: 1.13em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        #liveDateFixed {
+            color: #888;
+            font-size: 0.98em;
+            margin-left: 0;
+            margin-top: 2px;
+        }
+        @media (max-width: 700px) {
+            .live-info-fixed {
+                top: 8px;
+                right: 8px;
+                min-width: 90px;
+                padding: 7px 10px 7px 10px;
+                font-size: 0.95em;
+                border-radius: 12px;
+                box-shadow: 0 1px 6px rgba(44,62,80,0.10);
+                opacity: 0.97;
+                display: flex;
+            }
+        }
+
+        .animated-icons {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .icon-move {
+            position: absolute;
+            animation: iconFloat 5.5s ease-in-out infinite alternate, iconGlow 2.5s ease-in-out infinite alternate;
+        }
+        @keyframes iconFloat {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-24px) scale(1.08); }
+        }
+        @keyframes iconGlow {
+            0% { filter: drop-shadow(0 0 0px #fff); opacity: 0.7; }
+            100% { filter: drop-shadow(0 0 12px #fff); opacity: 1; }
+        }
+
+        .cube-info-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(44,62,80,0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            animation: fadeInModal 0.2s;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .cube-info-content {
+            background: #fff;
+            color: #1a2b4b;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+            padding: 32px 38px 24px 38px;
+            min-width: 260px;
+            max-width: 90vw;
+            font-size: 1.13em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            text-align: center;
+            animation: popInModal 0.25s;
+        }
+        @keyframes popInModal {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        #cubeInfoClose {
+            position: absolute;
+            top: 10px; right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        #cubeInfoClose:hover {
+            color: #e74c3c;
+        }
+
+        .cube-tooltip {
+            position: absolute;
+            top: -38px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44,62,80,0.97);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 16px;
+            font-size: 1em;
+            font-weight: 500;
+            box-shadow: 0 2px 12px rgba(44,62,80,0.13);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+            z-index: 20;
+        }
+        .cube-container:hover .cube-tooltip,
+        .cube-tooltip.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <div class="theme-toggle-container">
@@ -3563,6 +3830,10 @@
     </div>
 </head>
 <body>
+    <div class="live-info-fixed">
+        <span id="liveClockFixed"></span>
+        <span id="liveDateFixed"></span>
+    </div>
     <nav>
         <ul>
             <li><a href="#about">Hakkımda</a></li>
@@ -3575,10 +3846,47 @@
     </nav>
 
     <header id="home">
-        <div class="neural-network">
-            <!-- Neural network nodes and connections will be added by JavaScript -->
+        <!-- Parallax katmanlar -->
+        <div class="parallax-layer layer1"></div>
+        <div class="parallax-layer layer2"></div>
+        <div class="parallax-layer layer3"></div>
+        <!-- Animasyonlu ikonlar -->
+        <div class="animated-icons">
+            <div class="icon-move" style="left: 12%; top: 18%; animation-delay: 0s;">
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="18" fill="#fff" opacity="0.15"/><path d="M19 8c-3.5 0-6.5 2.5-6.5 6.5 0 2.5 1.5 4.5 3.5 5.5v2c0 1.5 1 2.5 2.5 2.5s2.5-1 2.5-2.5v-2c2-1 3.5-3 3.5-5.5C25.5 10.5 22.5 8 19 8z" fill="#3498db"/></svg>
+            </div>
+            <div class="icon-move" style="left: 80%; top: 22%; animation-delay: 1.2s;">
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="18" fill="#fff" opacity="0.15"/><rect x="10" y="14" width="18" height="10" rx="3" fill="#ffd700"/><rect x="14" y="10" width="10" height="4" rx="2" fill="#ffd700"/></svg>
+            </div>
+            <div class="icon-move" style="left: 30%; top: 60%; animation-delay: 0.7s;">
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="18" fill="#fff" opacity="0.15"/><rect x="13" y="13" width="12" height="12" rx="3" fill="#2ecc71"/><rect x="17" y="17" width="4" height="4" rx="2" fill="#fff"/></svg>
+            </div>
+            <div class="icon-move" style="left: 65%; top: 70%; animation-delay: 2s;">
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="18" fill="#fff" opacity="0.15"/><path d="M19 10c-2.5 0-4.5 2-4.5 4.5S16.5 19 19 19s4.5-2 4.5-4.5S21.5 10 19 10zm0 10c-3.5 0-6.5 2.5-6.5 6.5V29h13v-2.5c0-4-3-6.5-6.5-6.5z" fill="#9b59b6"/></svg>
+            </div>
+            <div class="icon-move" style="left: 55%; top: 35%; animation-delay: 1.5s;">
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="18" fill="#fff" opacity="0.15"/><rect x="13" y="13" width="12" height="12" rx="6" fill="#e67e22"/><rect x="17" y="17" width="4" height="4" rx="2" fill="#fff"/></svg>
+            </div>
         </div>
-        <div class="matrix-bg"></div>
+        <!-- 3D dönen küp -->
+        <div class="cube-container">
+            <div class="cube-tooltip show" id="cubeTooltip">Küpün yüzüne tıkla, bilgi al!</div>
+            <div class="cube" id="interactiveCube">
+                <div class="face front" data-info="Yapay Zeka (AI): İnsan benzeri zekâya sahip sistemler ve algoritmalar.">🤖<br><span>AI</span></div>
+                <div class="face back" data-info="Makine Öğrenmesi (ML): Veriden öğrenen ve tahmin yapan algoritmalar.">📊<br><span>ML</span></div>
+                <div class="face right" data-info="Veri Bilimi (DS): Büyük veriyle içgörü ve değer üretme bilimi.">🧠<br><span>DS</span></div>
+                <div class="face left" data-info="Python (PY): Veri bilimi ve yapay zekada en çok kullanılan programlama dili.">🐍<br><span>PY</span></div>
+                <div class="face top" data-info="Bilgisayarla Görü (CV): Görsel verilerden anlam çıkaran teknolojiler.">👁️<br><span>CV</span></div>
+                <div class="face bottom" data-info="Derin Öğrenme (DL): Çok katmanlı yapay sinir ağları ile öğrenme.">🔥<br><span>DL</span></div>
+            </div>
+        </div>
+        <!-- Bilgi kutusu -->
+        <div id="cubeInfoModal" class="cube-info-modal" style="display:none;">
+            <div class="cube-info-content">
+                <span id="cubeInfoText"></span>
+                <button id="cubeInfoClose" title="Kapat">&times;</button>
+            </div>
+        </div>
         <div class="header-content">
             <img src="IMG-20250506-WA0026.jpg" alt="İsmail Aykurt" class="profile-image">
             <h1 class="typing-animation">İsmail Aykurt</h1>
@@ -3667,7 +3975,7 @@
                         <div class="experience-item">
                             <div class="item-header">
                                 <div class="community-logo-container">
-                                    <img src="IEEE.png" alt="IEEE Logo" class="community-logo">
+                                    <img src="ieee_logo.png" alt="IEEE Logo" class="community-logo">
                                 </div>
                                 <span class="item-title">IEEE Student Branch</span>
                                 <span class="item-date">2023 - 2024</span>
@@ -3683,12 +3991,12 @@
                         <div class="experience-item">
                             <div class="item-header">
                                 <div class="community-logo-container">
-                                    <img src="teknofest.jpg" alt="Teknofest Logo" class="community-logo">
+                                    <img src="teknofest_logo.png" alt="Teknofest Logo" class="community-logo">
                                 </div>
                                 <span class="item-title">Teknofest Topluluğu</span>
                                 <span class="item-date">2025 - Devam</span>
                             </div>
-                            <div class="item-subtitle">Başkan Yardımcılığı</div>
+                            <div class="item-subtitle">Yönetim Kurulu Üyesi</div>
                             <p class="item-description">Teknoloji yarışmaları ve projelerde aktif katılım</p>
                         </div>
                     </div>
@@ -4201,7 +4509,7 @@
             </div>
 
             <div class="project-card">
-                <img src="kiraz.jpeg" alt="Kiraz Hastalık Tanısı Projesi">
+                <img src="C:\Users\hp\Desktop\projeler\portfolyo\hastalık.png" alt="Kiraz Hastalık Tanısı Projesi">
                 <div class="project-content">
                     <div class="project-header">
                         <h3>Kiraz Meyvelerinde Hastalık Tanısı</h3>
@@ -4280,87 +4588,23 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="social-projects">
-        <div class="floating-icons">
-            <i class="fas fa-heart floating-icon" style="top: 20%; left: 10%; animation-delay: 0s;"></i>
-            <i class="fas fa-hands-helping floating-icon" style="top: 40%; left: 80%; animation-delay: 1s;"></i>
-            <i class="fas fa-globe floating-icon" style="top: 70%; left: 20%; animation-delay: 2s;"></i>
-            <i class="fas fa-seedling floating-icon" style="top: 30%; left: 60%; animation-delay: 3s;"></i>
-            <i class="fas fa-users floating-icon" style="top: 80%; left: 40%; animation-delay: 4s;"></i>
-        </div>
-        <div class="volunteer-grid">
-            <div class="volunteer-column">
-                <h2 class="section-title">Sosyal Sorumluluk Projeleri</h2>
-                <div class="projects-grid">
-                    <div class="project-card t3-vakfi">
-                        <div class="project-content">
-                            <div class="organization">
-                                <img src="unnamed.jpg" alt="T3 Vakfı Logo" class="organization-logo">
-                                <span>T3 Vakfı</span>
-                            </div>
-                            <h3>Gençlere Python Eğitimi</h3>
-                            <div class="project-role">Proje Yürütücüsü</div>
-                            <p class="project-details">T3 Vakfı öncülüğünde yürütülen projede, ortaokul öğrencilerine Python eğitimi verdim. Geleceğin teknoloji uzmanlarının yetişmesine katkıda bulundum.</p>
-                            <div class="project-duration">04-2025</div>
-                        </div>
+            <div class="project-card">
+                <img src="C:\Users\hp\Desktop\projeler\portfolyo\teknofest.png" alt="TeknoKöy Projesi">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>TeknoKöy</h3>
+                        <span class="project-date">2025</span>
                     </div>
-                    <div class="project-card teknofest">
-                        <div class="project-content">
-                            <div class="organization">
-                                <img src="images.png" alt="TEKNOFEST Logo" class="organization-logo">
-                                <span>TEKNOFEST</span>
-                            </div>
-                            <h3>TEKNOFEST KKTC Jüri Sorumlusu</h3>
-                            <div class="badges">
-                                <span class="location-badge">
-                                    <i class="fas fa-map-marker-alt"></i> KKTC
-                                </span>
-                                <span class="role-badge">
-                                    <i class="fas fa-user-tie"></i> Jüri Sorumlusu
-                                </span>
-                            </div>
-                            <p class="project-details">
-                                KKTC'de düzenlenen TEKNOFEST'te jüri sorumlusu olarak görev aldım. Gençlerin yenilikçi projelerini değerlendirdim ve teknolojinin yaygınlaştırılmasına katkıda bulundum.
-                            </p>
-                            <div class="project-duration">05-2025</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="volunteer-column">
-                <h2 class="section-title">Gönüllü Çalışmalar</h2>
-                <div class="projects-grid">
-                    <div class="project-card t3-ai">
-                        <div class="project-content">
-                            <div class="organization">
-                                <img src="t3aile_logo.jpeg" alt="T3 AI Logo" class="organization-logo">
-                                <span>T3 AI'LE</span>
-                            </div>
-                            <h3>Büyük Dil Geliştirme Gönüllüsü</h3>
-                            <div class="project-role">Gönüllü Geliştirici</div>
-                            <p class="project-details">
-                                T3AI Projesi, T3 Vakfı yürütücülüğünde gerçekleşir, Türkiye'nin yerli üretken yapay zeka modellerinin geliştirilmesi, bu teknolojinin hizmetlere entegre edilmesi ve yapay zeka alanında çalışan yetkin iş gücünün oluşturulmasında öncü olmayı hedefler.
-                            </p>
-                            <div class="project-duration">05-2024 - Devam Ediyor</div>
-                        </div>
-                    </div>
-                    <div class="project-card afad">
-                        <div class="project-content">
-                            <div class="organization">
-                                <img src="AFAD-Logo-Renkli.png" alt="AFAD Logo" class="organization-logo">
-                                <span>AFAD</span>
-                            </div>
-                            <h3>Yardım Gönüllüsü</h3>
-                            <div class="project-role">Gönüllü</div>
-                            <p class="project-details">
-                                T.C. İçişleri Bakanlığı Afet ve Acil Durum Yönetimi Başkanlığı bünyesinde felaket ve insani yardım alanında gönüllü çalışmalar yürütüyorum.
-                            </p>
-                            <div class="project-duration">Devam Ediyor</div>
-                        </div>
+                    <div class="project-badge">ÜNİDES</div>
+                    <p class="project-description">
+                        Ortaokul öğrencilerine elektronik programlama eğitimi veren sosyal sorumluluk projesi. Öğrencilere temel elektronik ve programlama becerilerini kazandırarak, teknoloji alanında kendilerini geliştirmelerine olanak sağlıyoruz.Teknofest Topluluğu olarak, Aksu ve Şarkikaraağaç ilçelerinde ortaokul öğrencilerine temel robotik ve kodlama eğitimi verdik. Amacımız, çocukların erken yaşta teknolojiyle tanışmasını sağlamak ve bu alanda farkındalıklarını artırmaktı. Merakları ve öğrenme istekleri bizlere ilham verdi.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Eğitim</span>
+                        <span class="tag">Elektronik</span>
+                        <span class="tag">Programlama</span>
+                        
                     </div>
                 </div>
             </div>
@@ -4988,10 +5232,8 @@
             function isElementInViewport(el) {
                 const rect = el.getBoundingClientRect();
                 return (
-                    rect.top >= 0 &&
-                    rect.left >= 0 &&
-                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                    rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.bottom > 0
                 );
             }
 
@@ -5108,6 +5350,197 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        // Header arka plan slayt görselleri
+        const headerImages = [
+            'https://cdn.baykartech.com/media/images/bayraktar_tb3_1.jpg', // Bayraktar TB3
+            'https://cdn.baykartech.com/media/images/akinci_1.jpg', // Akıncı
+            'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1500&q=80', // Teknoloji temalı
+            'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1500&q=80' // Teknoloji temalı
+        ];
+        let currentHeaderImage = 0;
+        function changeHeaderBg() {
+            const bgDiv = document.querySelector('.header-bg-slideshow');
+            if (bgDiv) {
+                bgDiv.style.opacity = 0;
+                setTimeout(() => {
+                    bgDiv.style.backgroundImage = `url('${headerImages[currentHeaderImage]}')`;
+                    bgDiv.style.opacity = 0.5;
+                }, 500);
+                currentHeaderImage = (currentHeaderImage + 1) % headerImages.length;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const bgDiv = document.querySelector('.header-bg-slideshow');
+            if (bgDiv) {
+                bgDiv.style.backgroundImage = `url('${headerImages[0]}')`;
+            }
+            setTimeout(() => {
+                setInterval(changeHeaderBg, 4000);
+            }, 1000); // 1 saniye bekle, sonra slayt başlasın
+        });
+    </script>
+
+    <script>
+    // Parallax efekt için mouse hareketini dinle
+    document.addEventListener('mousemove', function(e) {
+        const layers = document.querySelectorAll('.parallax-layer');
+        const x = (e.clientX / window.innerWidth - 0.5) * 2;
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        layers.forEach((layer, i) => {
+            const depth = (i + 1) * 10;
+            layer.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+        });
+    });
+    </script>
+
+    <script>
+    // Sağ üst köşe için canlı saat ve tarih
+    function updateClockAndDateFixed() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById('liveClockFixed').textContent = `🕒 ${h}:${m}:${s}`;
+        // Türkçe tarih formatı
+        const days = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+        const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+        const day = days[now.getDay()];
+        const date = now.getDate();
+        const month = months[now.getMonth()];
+        const year = now.getFullYear();
+        document.getElementById('liveDateFixed').textContent = `${date} ${month} ${year} ${day}`;
+    }
+    setInterval(updateClockAndDateFixed, 1000);
+    updateClockAndDateFixed();
+    </script>
+
+    <script>
+    // Tam 3D doğal mouse drag ile dönen küp + bilgi kutusu
+    (function() {
+        const cube = document.getElementById('interactiveCube');
+        let rotX = -20;
+        let rotY = 20;
+        let animFrame;
+        let auto = true;
+        let isDragging = false;
+        let startX, startY, startRotX, startRotY;
+
+        function setCubeRotation(x, y) {
+            cube.style.transform = `translateX(-50%) rotateX(${x}deg) rotateY(${y}deg)`;
+        }
+
+        // Mouse drag ile tam 3D döndürme
+        cube.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            auto = false;
+            startX = e.clientX;
+            startY = e.clientY;
+            startRotX = rotX;
+            startRotY = rotY;
+            document.body.style.userSelect = 'none';
+        });
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            rotY = startRotY + dx * 0.7;
+            rotX = startRotX - dy * 0.7;
+            setCubeRotation(rotX, rotY);
+        });
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                setTimeout(() => { auto = true; }, 2000);
+                document.body.style.userSelect = '';
+            }
+        });
+
+        // Bilgi kutusu
+        const infoModal = document.getElementById('cubeInfoModal');
+        const infoText = document.getElementById('cubeInfoText');
+        const infoClose = document.getElementById('cubeInfoClose');
+        cube.querySelectorAll('.face').forEach(face => {
+            face.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const text = face.getAttribute('data-info');
+                infoText.textContent = text;
+                infoModal.style.display = 'flex';
+            });
+        });
+        infoClose.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+        });
+        infoModal.addEventListener('click', (e) => {
+            if (e.target === infoModal) {
+                infoModal.style.display = 'none';
+            }
+        });
+        // Otomatik animasyon için
+        function autoRotate() {
+            if (auto && !isDragging) {
+                rotY += 0.5;
+                setCubeRotation(rotX, rotY);
+            }
+            animFrame = requestAnimationFrame(autoRotate);
+        }
+        autoRotate();
+    })();
+    </script>
+
+    <script>
+        // Tooltip ilk açılışta göster, sonra kaybolsun
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltip = document.getElementById('cubeTooltip');
+            setTimeout(() => {
+                tooltip.classList.remove('show');
+            }, 3500);
+        });
+    </script>
+
+    <script>
+    // Mobilde 'Hakkımda' kısmına gelince saat kutusu kaybolsun
+    document.addEventListener('DOMContentLoaded', function() {
+        const liveInfo = document.querySelector('.live-info-fixed');
+        const aboutSection = document.getElementById('about');
+        if (!liveInfo || !aboutSection) return;
+
+        function handleVisibility(entries) {
+            entries.forEach(entry => {
+                if (window.innerWidth <= 700) {
+                    if (entry.isIntersecting) {
+                        liveInfo.style.display = 'none';
+                    } else {
+                        liveInfo.style.display = '';
+                    }
+                } else {
+                    liveInfo.style.display = '';
+                }
+            });
+        }
+        const observer = new window.IntersectionObserver(handleVisibility, { threshold: 0.2 });
+        observer.observe(aboutSection);
+
+        // Ekran boyutu değişirse de kontrol et
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 700) {
+                liveInfo.style.display = '';
+            }
+        });
+
+        // Mobilde scroll ile saat kutusunu gizle/göster
+        window.addEventListener('scroll', function() {
+            if (window.innerWidth <= 700) {
+                if (window.scrollY > 30) {
+                    liveInfo.style.display = 'none';
+                } else {
+                    liveInfo.style.display = '';
+                }
+            }
+        });
+    });
     </script>
 </body>
 </html> 
